@@ -12,27 +12,23 @@ struct ReminderModels {
     struct PillCellModel {
         var frequency: Frequency?
         var medication: String?
-        var status: Status?
+        var checked: Bool
         var checkBoxImageName: String?
+        var date: Date
     }
     
     struct TasksCellModel {
         var description: String?
         var title: String?
         var frequency: Frequency?
-        var status: Status?
+        var checked: Bool
         var checkBoxImageName: String?
-        var date: String?
+        var date: Date
     }
     
     enum Frequency: String {
         case once = "Once"
-        case repeating = "Daily"
-    }
-    
-    enum Status {
-        case checked
-        case unchecked
+        case repeating = "Repeating"
     }
     
 }

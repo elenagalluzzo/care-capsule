@@ -10,7 +10,7 @@ import AppleProductTypes
 let package = Package(
     name: "Care Capsule",
     platforms: [
-        .iOS("16.0")
+        .iOS("17.0")
     ],
     products: [
         .iOSApplication(
@@ -41,7 +41,16 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "AppModule",
-            path: "."
-        )
+            path: ".",
+            resources: [
+                .copy("Resources/MentalHealthSentimentAnalysis.mlmodelc")
+            ])
+//        ),
+//        .target(
+//            name: "AppModule",
+//            dependencies: [],
+//            resources: [
+//                .copy("Resources/MentalHealthSentimentAnalysis.mlmodelc")
+//            ])
     ]
 )

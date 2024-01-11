@@ -53,6 +53,9 @@ struct MiniAssistantHelperView: View {
                 self.isTalking = false
             }
         }
+        .onDisappear {
+            synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        }
         .background(.clear)
     }
     func assistantSpeech(prompt: AssistantModels.Prompts?) -> String {

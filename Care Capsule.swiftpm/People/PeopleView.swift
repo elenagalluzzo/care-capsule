@@ -13,8 +13,6 @@ struct PeopleView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.capsuleLightPurple)
-                    .ignoresSafeArea()
                 VStack {
                     Divider()
                         .background(Color(.capsuleLightPurple))
@@ -34,10 +32,11 @@ struct PeopleView: View {
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
                     
                 }
-                .background(Color.white)
+                
+                .background(Color(.capsuleLightOrange).opacity(0.3))
             }
             .navigationTitle("Loved Ones")
-            .background(Color(.capsuleLightPurple))
+            
         }
     }
 }

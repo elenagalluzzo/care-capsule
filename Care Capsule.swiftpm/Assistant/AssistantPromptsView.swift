@@ -8,6 +8,7 @@
 import SwiftUI
 import AVFoundation
 
+@available(iOS 17.0, *)
 struct AssistantPromptsView: View {
     @State var isTalking: Bool = true
     @State var synthesizer = AVSpeechSynthesizer()
@@ -25,6 +26,11 @@ struct AssistantPromptsView: View {
                         .padding()
                     Text("Hello, how can I help you?")
                         .font(.title)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color(.capsuleDarkPurple), lineWidth: 2)
+                        ).background(RoundedRectangle(cornerRadius: 10).fill(Color(.white)))
                     Group {
                         if isTalking {
                             AssistantSpeechAnimation()
@@ -42,6 +48,9 @@ struct AssistantPromptsView: View {
                     .aspectRatio(3, contentMode: .fit)
                     .frame(width: 50, height: 50)
                     .padding(60)
+                    .onDisappear {
+                        synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+                    }
                     HStack(spacing: 16) {
                         NavigationLink(destination: ReminderView(prompt: .tasksToday)) {
                             PromptButtonView(prompt: AssistantModels.Prompts.tasksToday.rawValue)
@@ -79,20 +88,19 @@ struct PromptButtonView: View {
     var body: some View {
         Text(prompt)
             .padding(10)
-            .foregroundColor(Color(.capsuleDarkPurple))
+            .foregroundColor(Color(.black))
             
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color(.capsuleDarkOrange), lineWidth: 2)
             ).background(RoundedRectangle(cornerRadius: 10).fill(Color(.capsuleLightOrange)))
         
-            .font(.title3)
-            .fontWeight(.bold)
+            .font(.title2)
             .lineLimit(5)
             .accessibilityAddTraits(.isButton)
     }
 }
 
-#Preview {
-    AssistantPromptsView()
-}
+//#Preview {
+//    AssistantPromptsView()
+//}

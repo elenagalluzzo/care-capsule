@@ -15,6 +15,7 @@ struct AssistantModels {
         case pillsToTake = "Have I taken my pills today?"
         case memories = "I want to see my memories."
         case chat = "I want to chat."
+        case resources = "Here are some resources you can access."
         case reminderGeneral
         case lovedOnesGeneral
     }
@@ -34,20 +35,12 @@ struct AssistantModels {
         case assistant
     }
     
-    @MainActor
-    class ChatViewModel: ObservableObject {
-        @Published var message = ""
-        @Published var chatMessages = [ChatMessageModel]()
-        @Published var isWaiting = false
-        func sendMessage() async throws {
-            let userMessage = ChatMessageModel(speaker: .me, text: message)
-            chatMessages.append(userMessage)
-            isWaiting = true
-            let assistantMessage = ChatMessageModel(speaker: .assistant, text: "")
-            chatMessages.append(assistantMessage)
-            message = ""
-            isWaiting = false
-        }
+    enum ResponsePrompts {
+        case tasks
+        case reminders
+        case negative
+        case all
+        case none
     }
 
 }
