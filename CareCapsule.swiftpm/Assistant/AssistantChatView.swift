@@ -146,7 +146,7 @@ struct AssistantChatView: View {
     }
     
     private func analyzeSentiment() {
-        let model = try! MentalHealthSentimentAnalysis()
+        let model = try! MentalHealthSentimentAnalysis(configuration: MLModelConfiguration())
         let input = MentalHealthSentimentAnalysisInput(text: viewModel.message)
         guard let output = try? model.prediction(input: input) else { return }
         sentimentPrediction = output.label == "0" ? "notConsidered" : "considered"

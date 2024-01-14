@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "Care Capsule",
+    name: "CareCapsule",
     platforms: [
         .iOS("17.0")
     ],
     products: [
         .iOSApplication(
-            name: "Care Capsule",
+            name: "CareCapsule",
             targets: ["AppModule"],
             bundleIdentifier: "com.elenagalluzzo.Care-Capsule",
             teamIdentifier: "9S84DPJ7LD",
@@ -44,13 +44,7 @@ let package = Package(
             path: ".",
             resources: [
                 .copy("Resources/MentalHealthSentimentAnalysis.mlmodelc")
-            ])
-//        ),
-//        .target(
-//            name: "AppModule",
-//            dependencies: [],
-//            resources: [
-//                .copy("Resources/MentalHealthSentimentAnalysis.mlmodelc")
-//            ])
+            ]
+        )
     ]
 )

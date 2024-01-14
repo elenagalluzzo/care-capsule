@@ -1,4 +1,10 @@
 //
+//  File.swift
+//  
+//
+//  Created by Elena Galluzzo on 2024-01-13.
+//
+//
 // MentalHealthSentimentAnalysis.swift
 //
 // This file was automatically generated and should not be edited.
@@ -74,7 +80,6 @@ class MentalHealthSentimentAnalysis {
         let bundle = Bundle(for: self)
         return bundle.url(forResource: "MentalHealthSentimentAnalysis", withExtension:"mlmodelc")!
     }
-
     /**
         Construct MentalHealthSentimentAnalysis instance with an existing MLModel object.
 
@@ -215,7 +220,7 @@ class MentalHealthSentimentAnalysis {
 
         - parameters:
            - input: the input to the prediction as MentalHealthSentimentAnalysisInput
-           - options: prediction options 
+           - options: prediction options
 
         - throws: an NSError object that describes the problem
 
@@ -231,7 +236,7 @@ class MentalHealthSentimentAnalysis {
 
         - parameters:
            - input: the input to the prediction as MentalHealthSentimentAnalysisInput
-           - options: prediction options 
+           - options: prediction options
 
         - throws: an NSError object that describes the problem
 
@@ -263,7 +268,7 @@ class MentalHealthSentimentAnalysis {
 
         - parameters:
            - inputs: the inputs to the prediction as [MentalHealthSentimentAnalysisInput]
-           - options: prediction options 
+           - options: prediction options
 
         - throws: an NSError object that describes the problem
 

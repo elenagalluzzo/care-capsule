@@ -14,10 +14,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>Care Capsule.xcscheme_^#shared#^_</key>
+		<key>CareCapsule-Package.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>CareCapsule.swiftpm-Package.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>CareCapsule.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -28,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>Care Capsule.swiftpm</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CareCapsule.swiftpm</key>
 		<dict>
 			<key>primary</key>
 			<true/>
