@@ -13,7 +13,6 @@ struct ReminderModels {
         var frequency: Frequency?
         var medication: String?
         var checked: Bool
-        var checkBoxImageName: String?
         var date: Date
     }
     
@@ -22,7 +21,6 @@ struct ReminderModels {
         var title: String?
         var frequency: Frequency?
         var checked: Bool
-        var checkBoxImageName: String?
         var date: Date
     }
     

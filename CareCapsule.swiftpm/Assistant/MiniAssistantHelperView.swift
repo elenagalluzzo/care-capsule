@@ -63,7 +63,9 @@ struct MiniAssistantHelperView: View {
         case .tasksToday:
             return "Here are your tasks today."
         case .setUpReminder:
-            return "Press the plus next to tasks to add a new task."
+            return "Press the + next to tasks to add a new task."
+        case .setUpPill:
+            return "Press the + next to Medication to add a new medication schedule."
         case .pillsToTake:
             return "Here is the medication you still need to take today."
         case .memories:
@@ -72,6 +74,8 @@ struct MiniAssistantHelperView: View {
             return "You can press the + next to tasks or medication to set up a reminder."
         case .lovedOnesGeneral:
             return "You can add a loved one by pressing the +. You can add images and their associated memories."
+        case .resources:
+            return "Here are some resources you can access."
         default:
             return "Press 'Your Assistant' if you need assistance."
         }

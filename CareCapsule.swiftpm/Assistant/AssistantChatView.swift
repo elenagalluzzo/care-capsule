@@ -10,7 +10,7 @@ import AVFoundation
 import CoreML
 
 struct AssistantChatView: View {
-    @StateObject private var viewModel = Chat()
+    @StateObject private var viewModel = AssistantResponse()
     @State var isTalking: Bool = true
     @State var synthesizer = AVSpeechSynthesizer()
     @State private var sentimentPrediction = "notConsidered"

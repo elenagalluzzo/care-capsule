@@ -92,8 +92,8 @@ struct PromptButtonView: View {
             
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(.capsuleDarkOrange), lineWidth: 2)
-            ).background(RoundedRectangle(cornerRadius: 10).fill(Color(.capsuleLightOrange)))
+                    .stroke(prompt == "I want to chat." ? Color(.capsuleDarkPurple) : Color(.capsuleDarkOrange) , lineWidth: 2)
+            ).background(RoundedRectangle(cornerRadius: 10).fill(prompt == "I want to chat." ? Color(.capsuleLightPurple) : Color(.capsuleLightOrange)))
         
             .font(.title2)
             .lineLimit(5)
@@ -104,3 +104,5 @@ struct PromptButtonView: View {
 //#Preview {
 //    AssistantPromptsView()
 //}
+
+

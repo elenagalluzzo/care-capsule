@@ -53,37 +53,3 @@ final class MedicationEntity {
 
 
 
-
-
-
-//import CoreData
-//
-//@objc(TaskEntity)
-//public class TaskEntity: NSManagedObject, Identifiable {
-//    @NSManaged public var id: UUID
-//    @NSManaged public var title: String
-//    @NSManaged public var descrip: String?
-//    @NSManaged public var frequency: String
-//    @NSManaged public var checked: Bool
-//    @NSManaged public var dateOfTask: Date
-//    
-//    var frequencyValue: ReminderModels.Frequency {
-//        get {
-//            ReminderModels.Frequency(rawValue: frequency) ?? .once
-//        }
-//        set {
-//            self.frequency = newValue.rawValue
-//        }
-//    }
-//   
-//}
-//
-//@objc(MedicationEntity)
-//public class MedicationEntity: NSManagedObject {
-//    @NSManaged public var id: UUID
-//    @NSManaged public var title: String
-//    @NSManaged public var frequency: String?
-//    @NSManaged public var checked: Bool
-//    @NSManaged public var firstDate: Date
-//    @NSManaged public var endDate: Date?
-//}

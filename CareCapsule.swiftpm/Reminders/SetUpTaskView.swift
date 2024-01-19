@@ -23,6 +23,7 @@ struct SetUpTaskView: View {
                 DatePicker("Please enter a date", selection: $task.dateOfTask)
                     .labelsHidden()
                 
+                
                 Button("Add", action: addTask)
             }
         }

@@ -15,12 +15,12 @@ struct TaskCell: View {
         VStack {
             Text(taskCell.date.formatted(.iso8601.year().month().day()))
             HStack {
-                Image(taskCell.checkBoxImageName ?? "")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 70, height: 70)
-                    .cornerRadius(5)
-                    .padding(.leading, 8)
+//                Image(taskCell.checkBoxImageName ?? "")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .frame(width: 70, height: 70)
+//                    .cornerRadius(5)
+//                    .padding(.leading, 8)
                 VStack {
                     Text(taskCell.title ?? "")
                         .font(.title3)

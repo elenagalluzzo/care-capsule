@@ -21,8 +21,9 @@ struct PillsView: View {
                         .background(Color(.capsuleLightPurple))
                     List {
                         ForEach(pills) { pill in
-                            PillCell(pillCell: ReminderModels.PillCellModel(frequency: .once, medication: pill.title, checked: false, date: pill.firstDate))
+                            PillCell(pillCell: ReminderModels.PillCellModel(frequency: pill.frequencyValue, medication: pill.title, checked: pill.checked, date: pill.firstDate))
                         }
+                        .onDelete(perform: deletePill)
                     }
                 }
                 .scrollContentBackground(.hidden)
@@ -34,25 +35,32 @@ struct PillsView: View {
                 }
             }
             .background(Color(.capsuleLightOrange).opacity(0.3))
-        }
-        .toolbar {
-            ToolbarItem {
-                Button(action: {
-                    showSetUp.toggle()
-                }, label: {
-                    Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.accentColor)
-                })
+            .navigationTitle("Medication")
+            .toolbar {
+                ToolbarItem {
+                    Button(action: {
+                        showSetUp.toggle()
+                    }, label: {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.accentColor)
+                    })
+                }
             }
+            
+            .sheet(isPresented: $showSetUp, content: {
+                NavigationStack {
+                    SetUpPillView()
+                }
+                .presentationDetents([.medium])
+            })
         }
-        .sheet(isPresented: $showSetUp, content: {
-            NavigationStack {
-                SetUpPillView()
-            }
-            .presentationDetents([.medium])
-        })
         
-        .navigationTitle("Medication")
+    }
+    func deletePill(_ indexSet: IndexSet) {
+        for index in indexSet {
+            let pill = pills[index]
+            modelContext.delete(pill)
+        }
     }
         
 }

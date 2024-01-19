@@ -34,16 +34,17 @@ struct ResourcesView: View {
                 }
             }
             .background(Color(.capsuleLightOrange).opacity(0.3))
-        }
-        .navigationTitle("Resources")
-        .background(Color(.capsuleLightOrange).opacity(0.3))
-        .scrollContentBackground(.hidden)
-        .safeAreaInset(edge: .bottom, spacing: 5) {
-            Group {
-                MiniAssistantHelperView(prompt: prompt, isTalking: true)
+            .navigationTitle("Resources")
+            .background(Color(.capsuleLightOrange).opacity(0.3))
+            .scrollContentBackground(.hidden)
+            .safeAreaInset(edge: .bottom, spacing: 5) {
+                Group {
+                    MiniAssistantHelperView(prompt: prompt, isTalking: true)
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
             }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
         }
+        
         
     }
     

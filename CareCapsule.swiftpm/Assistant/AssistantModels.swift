@@ -15,9 +15,10 @@ struct AssistantModels {
         case pillsToTake = "Have I taken my pills today?"
         case memories = "I want to see my memories."
         case chat = "I want to chat."
-        case resources = "Here are some resources you can access."
+        case resources
         case reminderGeneral
         case lovedOnesGeneral
+        case setUpPill
     }
     
     struct ChatMessageModel: Identifiable {
