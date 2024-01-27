@@ -15,21 +15,21 @@ struct AssistantPromptsView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.capsuleLightOrange)
+                Color("capsuleLightOrange")
                     .opacity(0.3)
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 16) {
                     Text("Your Assistant")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(Color(.capsuleDarkPurple))
+                        .foregroundColor(Color("capsuleDarkPurple"))
                         .padding()
                     Text("Hello, how can I help you?")
                         .font(.title)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(.capsuleDarkPurple), lineWidth: 2)
+                                .stroke(Color("capsuleDarkPurple"), lineWidth: 2)
                         ).background(RoundedRectangle(cornerRadius: 10).fill(Color(.white)))
                     Group {
                         if isTalking {
@@ -60,7 +60,7 @@ struct AssistantPromptsView: View {
                         }
                     }
                     HStack(spacing: 16) {
-                        NavigationLink(destination: ReminderView(prompt: .pillsToTake)) {
+                        NavigationLink(destination: PillsView(prompt: .pillsToTake)) {
                             PromptButtonView(prompt: AssistantModels.Prompts.pillsToTake.rawValue)
                         }
                         NavigationLink(destination: PeopleView(prompt: .memories)) {
@@ -92,8 +92,8 @@ struct PromptButtonView: View {
             
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(prompt == "I want to chat." ? Color(.capsuleDarkPurple) : Color(.capsuleDarkOrange) , lineWidth: 2)
-            ).background(RoundedRectangle(cornerRadius: 10).fill(prompt == "I want to chat." ? Color(.capsuleLightPurple) : Color(.capsuleLightOrange)))
+                    .stroke(prompt == "I want to chat." ? Color("capsuleDarkPurple") : Color("capsuleDarkOrange") , lineWidth: 2)
+            ).background(RoundedRectangle(cornerRadius: 10).fill(prompt == "I want to chat." ? Color("capsuleLightPurple") : Color("capsuleLightOrange")))
         
             .font(.title2)
             .lineLimit(5)

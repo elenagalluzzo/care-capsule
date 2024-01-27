@@ -20,7 +20,7 @@ struct AssistantChatView: View {
             ZStack {
                 VStack {
                     Divider()
-                        .background(Color(.capsuleLightPurple))
+                        .background(Color("capsuleLightPurple"))
                     Group {
                         if isTalking {
                             AssistantSpeechAnimation()
@@ -52,17 +52,24 @@ struct AssistantChatView: View {
                                     .frame(height: 2)
                                     .id("bottom")
                             }
+                            
+                            
                         }
+                        .onChange(of: viewModel.chatMessages.count) { _ in
+                            proxy.scrollTo(viewModel.chatMessages[viewModel.chatMessages.count-1].id, anchor: .bottom)
+                        }
+                        .id("bottom")
+                        Spacer()
                     }
                     Button("Dismiss Keyboard") {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
-                    .foregroundColor(Color(.capsuleDarkOrange))
+                    .foregroundColor(Color("capsuleDarkOrange"))
                     HStack {
                         VStack {
-                            TextField("Type or speak ...", text: $viewModel.message, axis: .vertical)
+                            TextField("Type here ...", text: $viewModel.message, axis: .vertical)
                                 .padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 30))
-                                .background(Color(.capsuleLightPurple)
+                                .background(Color("capsuleLightPurple")
                                     .cornerRadius(20))
                         }
                         
@@ -74,6 +81,7 @@ struct AssistantChatView: View {
                                 Button("Send") {
                                     analyzeSentiment()
                                     sendMessage(sentimentPrediction: sentimentPrediction)
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 }
                                 .buttonStyle(.borderedProminent)
                                 .controlSize(.large)
@@ -81,9 +89,9 @@ struct AssistantChatView: View {
                             }
                         }
                     }
-                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 15, trailing: 15))
+                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 }
-                .background(Color(.capsuleLightOrange).opacity(0.3))
+                .background(Color("capsuleLightOrange").opacity(0.3))
             }
             .navigationTitle("Chat")
         }
@@ -97,22 +105,21 @@ struct AssistantChatView: View {
             if !message.text.isEmpty {
                 VStack {
                     Text(message.text)
-                        .foregroundColor(message.speaker == .me ? Color(.black) : Color(.capsuleDarkPurple))
+                        .foregroundColor(message.speaker == .me ? Color(.black) : Color("capsuleDarkPurple"))
                         .font(.title3)
                         .padding(12)
-                        .background(message.speaker == .me ? Color(.capsuleLightOrange) : Color(.white))
+                        .background(message.speaker == .me ? Color("capsuleLightOrange") : Color(.white))
                         .cornerRadius(16)
                         .overlay(alignment: message.speaker == .me ? .bottomTrailing : .bottomLeading) {
                             Text(message.speaker.rawValue.capitalized)
                                 .font(.subheadline)
                                 .offset(y: 35)
-//                                 .padding()
+                                 .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
                         }
                 }
             }
             if message.speaker == .assistant {
                 Spacer(minLength: 60)
-
             }
         }
         .padding(.horizontal)
@@ -152,7 +159,6 @@ struct AssistantChatView: View {
         sentimentPrediction = output.label == "0" ? "notConsidered" : "considered"
     }
 }
-
 
 #Preview {
     AssistantChatView()

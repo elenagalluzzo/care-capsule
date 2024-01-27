@@ -23,7 +23,7 @@ struct MiniAssistantHelperView: View {
                         .foregroundColor(.black)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(.capsuleDarkPurple), lineWidth: 2)
+                                .stroke(Color("capsuleDarkPurple"), lineWidth: 2)
                         ).background(RoundedRectangle(cornerRadius: 10).fill(Color(.white)))
                     AssistantSpeechAnimation()
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))

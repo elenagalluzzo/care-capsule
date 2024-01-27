@@ -30,14 +30,14 @@ struct ReminderView: View {
             ZStack {
                 VStack {
                     Divider()
-                        .background(Color(.capsuleDarkPurple))
+                        .background(Color("capsuleDarkPurple"))
                     List {
                         Section() {
                             HStack() {
                                 Text("Tasks")
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
-                                    .foregroundColor(Color(.capsuleDarkOrange))
+                                    .foregroundColor(Color("capsuleDarkOrange"))
                                 Image("Assistant-1")
                                     .resizable()
                                     .frame(width: 50, height: 50)
@@ -55,7 +55,7 @@ struct ReminderView: View {
                             }
                             .onDelete(perform: deleteTask)
                         }
-                        .listRowBackground(Color(.capsuleLightOrange))
+                        .listRowBackground(Color("capsuleLightOrange"))
                         if tasks.count == 0 {
                             Image("no-data")
                                 .resizable()
@@ -68,7 +68,7 @@ struct ReminderView: View {
                                 Text("Medication")
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
-                                    .foregroundColor(Color(.capsuleDarkPurple))
+                                    .foregroundColor(Color("capsuleDarkPurple"))
                                 Image("Assistant-1")
                                     .resizable()
                                     .frame(width: 50, height: 50)
@@ -80,13 +80,13 @@ struct ReminderView: View {
                         }
                         .listRowBackground(Color(.clear))
                         Section {
-                            PillCell(pillCell: ReminderModels.PillCellModel(frequency: .once, medication: "Med", checked: false, date: Date()))
-                            PillCell(pillCell: ReminderModels.PillCellModel(frequency: .once, medication: "Med", checked: false, date: Date()))
+//                            PillCell(pillCell: ReminderModels.PillCellModel(frequency: .once, medication: "Med", checked: false, date: Date()))
+//                            PillCell(pillCell: ReminderModels.PillCellModel(frequency: .once, medication: "Med", checked: false, date: Date()))
                         }
-                        .listRowBackground(Color(.capsuleLightPurple))
+                        .listRowBackground(Color("capsuleLightPurple"))
                         
                     }
-                    .background(Color(.capsuleLightOrange).opacity(0.3))
+                    .background(Color("capsuleLightOrange").opacity(0.3))
                 }
                 
                 .scrollContentBackground(.hidden)
@@ -113,7 +113,7 @@ struct ReminderView: View {
             .navigationTitle("Life Manager")
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(
-                Color(.capsuleMediumPurple),
+                Color("capsuleMediumPurple"),
                 for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {

@@ -15,11 +15,11 @@ struct PeopleView: View {
             ZStack {
                 VStack {
                     Divider()
-                        .background(Color(.capsuleLightPurple))
+                        .background(Color("capsuleLightPurple"))
                     List {
                         ForEach(people) { person in
                             PeopleCellView(person: PeopleModels.CellModel(name: person.name, profileImageName: person.images?[0].imageName ?? "Assistant-1", images: person.images))
-                                .listRowBackground(Color(.capsuleLightOrange))
+                                .listRowBackground(Color("capsuleLightOrange"))
                            
                         }
                     }
@@ -33,7 +33,7 @@ struct PeopleView: View {
                     
                 }
                 
-                .background(Color(.capsuleLightOrange).opacity(0.3))
+                .background(Color("capsuleLightOrange").opacity(0.3))
             }
             .navigationTitle("Loved Ones")
             

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ReminderModels {
     
-    struct PillCellModel {
-        var frequency: Frequency?
-        var medication: String?
-        var checked: Bool
-        var date: Date
-    }
+//    struct PillCellModel {
+//        var frequency: String?
+//        var medication: String?
+//        var checked: Bool
+//        var date: Date
+//    }
     
     struct TasksCellModel {
         var description: String?
@@ -24,9 +24,10 @@ struct ReminderModels {
         var date: Date
     }
     
-    enum Frequency: String {
-        case once = "Once"
-        case repeating = "Repeating"
+    enum Frequency: String, CaseIterable, Identifiable {
+        case once = "once"
+        case repeating = "repeating"
+        var id: Frequency { self }
     }
     
 }

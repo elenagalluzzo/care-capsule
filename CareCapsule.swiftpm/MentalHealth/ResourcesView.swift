@@ -14,28 +14,28 @@ struct ResourcesView: View {
             ZStack {
                 VStack {
                     Divider()
-                        .background(Color(.capsuleLightPurple))
+                        .background(Color("capsuleLightPurple"))
                     List {
                         VStack {
                             Text("211")
-                            Text("211 is a free and confidential service that can be accessed by phone, text, chat, and online for information on government and community-based, non-clinical health and social services.")
+                            Text("24 hour free and confidential service Canada's primary source of information for government and community-based health and social services that can be accessed by phone, text, chat, and online.")
                         }
                         VStack {
                             Text("call 1-866-585-0445")
-                            Text("211 is a free and confidential service that can be accessed by phone, text, chat, and online for information on government and community-based, non-clinical health and social services.")
+                            Text("24 Hour Free Counselling with Wellness Together Canada")
                         }
                         
                         VStack {
                             Text("text WELLNESS to 741741")
-                            Text("211 is a free and confidential service that can be accessed by phone, text, chat, and online for information on government and community-based, non-clinical health and social services.")
+                            Text("To connect with a mental health professional one-on-one:")
                         }
                         
                     }
                 }
             }
-            .background(Color(.capsuleLightOrange).opacity(0.3))
+            .background(Color("capsuleLightOrange").opacity(0.3))
             .navigationTitle("Resources")
-            .background(Color(.capsuleLightOrange).opacity(0.3))
+            .background(Color("capsuleLightOrange").opacity(0.3))
             .scrollContentBackground(.hidden)
             .safeAreaInset(edge: .bottom, spacing: 5) {
                 Group {
@@ -49,12 +49,6 @@ struct ResourcesView: View {
     }
     
 }
-
-
-
-
-
-
 
 #Preview {
     ResourcesView()

@@ -11,17 +11,18 @@ import SwiftData
 struct PillsView: View {
     @Environment(\.modelContext) var modelContext
     @State var prompt: AssistantModels.Prompts?
-    @State private var showSetUp = false
+    @State private var showSetUp: Bool = false
     @Query var pills: [MedicationEntity]
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
                     Divider()
-                        .background(Color(.capsuleLightPurple))
+                        .background(Color("capsuleLightPurple"))
                     List {
                         ForEach(pills) { pill in
-                            PillCell(pillCell: ReminderModels.PillCellModel(frequency: pill.frequencyValue, medication: pill.title, checked: pill.checked, date: pill.firstDate))
+                            @Bindable var bindedPill = pill
+                            PillCell(pill: pill)
                         }
                         .onDelete(perform: deletePill)
                     }
@@ -34,7 +35,10 @@ struct PillsView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
                 }
             }
-            .background(Color(.capsuleLightOrange).opacity(0.3))
+//            .onAppear {
+//                showSetUp = false
+//            }
+            .background(Color("capsuleLightOrange").opacity(0.3))
             .navigationTitle("Medication")
             .toolbar {
                 ToolbarItem {
@@ -46,15 +50,13 @@ struct PillsView: View {
                     })
                 }
             }
-            
             .sheet(isPresented: $showSetUp, content: {
                 NavigationStack {
-                    SetUpPillView()
+                    SetUpPillView(showSetUp: $showSetUp)
                 }
                 .presentationDetents([.medium])
             })
         }
-        
     }
     func deletePill(_ indexSet: IndexSet) {
         for index in indexSet {

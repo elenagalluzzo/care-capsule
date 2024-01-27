@@ -33,15 +33,15 @@ final class MedicationEntity {
     var checked: Bool
     var firstDate: Date
     var endDate: Date?
-    var frequencyValue: ReminderModels.Frequency {
-        get {
-            ReminderModels.Frequency(rawValue: frequency) ?? .once
-        }
-        set {
-            self.frequency = newValue.rawValue
-        }
-    }
-    
+//    var frequencyValue: ReminderModels.Frequency {
+//        get {
+//            ReminderModels.Frequency(rawValue: frequency) ?? .once
+//        }
+//        set {
+//            self.frequency = newValue.rawValue
+//        }
+//    }
+//    
     init(title: String = "", frequency: String = "once", checked: Bool = false, firstDate: Date = Date(), endDate: Date? = nil) {
         self.title = title
         self.frequency = frequency

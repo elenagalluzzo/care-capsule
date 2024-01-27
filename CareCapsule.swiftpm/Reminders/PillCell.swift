@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct PillCell: View {
-    @State var pillCell: ReminderModels.PillCellModel
-//    @StateObject var checked = pillCell.checked
+    @State var pill: MedicationEntity
     var body: some View {
         VStack {
-            Text(pillCell.date.formatted(.iso8601.year().month().day()))
+            Text(pill.firstDate.formatted(.dateTime.day().month().year()))
             HStack {
-                if pillCell.checked {
+                if pill.checked {
                     Image(systemName: "checkmark.circle.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -22,7 +21,7 @@ struct PillCell: View {
                         .cornerRadius(5)
                         .padding(.leading, 8)
                         .onTapGesture {
-                            pillCell.checked = false
+                            pill.checked = false
                         }
                 } else {
                     Image(systemName: "circle")
@@ -32,15 +31,21 @@ struct PillCell: View {
                         .cornerRadius(5)
                         .padding(.leading, 8)
                         .onTapGesture {
-                            pillCell.checked = true
+                            pill.checked = true
+                            if pill.frequency == "repeating" {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    pill.firstDate = Calendar.current.date(byAdding: .day, value: 1, to: pill.firstDate)!
+                                    pill.checked = false
+                                }
+                            }
                         }
                 }
                 VStack {
-                    Text(pillCell.medication ?? "")
+                    Text(pill.title)
                         .font(.title3)
                         .fontWeight(.bold)
                         .lineLimit(2)
-                    Text(String(pillCell.frequency?.rawValue ?? ""))
+                    Text(String(pill.frequency))
                     Spacer()
                 }
                 .padding(.vertical, 8)
