@@ -10,10 +10,12 @@ import AVFoundation
 
 @available(iOS 17.0, *)
 struct AssistantPromptsView: View {
+    @Binding var selection: Tab
+    @Binding var path: [AssistantNavigation]
     @State var isTalking: Bool = true
     @State var synthesizer = AVSpeechSynthesizer()
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 Color("capsuleLightOrange")
                     .opacity(0.3)
@@ -63,11 +65,17 @@ struct AssistantPromptsView: View {
                         NavigationLink(destination: PillsView(prompt: .pillsToTake)) {
                             PromptButtonView(prompt: AssistantModels.Prompts.pillsToTake.rawValue)
                         }
+                        .onTapGesture {
+                            self.selection = Tab.pills
+                        }
                         NavigationLink(destination: PeopleView(prompt: .memories)) {
                             PromptButtonView(prompt: AssistantModels.Prompts.memories.rawValue)
                         }
                     }
-                    NavigationLink(destination: AssistantChatView()) {
+//                    NavigationLink(destination: AssistantChatView()) {
+//                        PromptButtonView(prompt: AssistantModels.Prompts.chat.rawValue)
+//                    }
+                    NavigationLink(value: AssistantNavigation.child) {
                         PromptButtonView(prompt: AssistantModels.Prompts.chat.rawValue)
                     }
                 }
