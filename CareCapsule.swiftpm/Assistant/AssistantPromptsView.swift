@@ -11,21 +11,24 @@ import AVFoundation
 @available(iOS 17.0, *)
 struct AssistantPromptsView: View {
     @Binding var selection: Tab
-    @Binding var path: [AssistantNavigation]
     @State var isTalking: Bool = true
     @State var synthesizer = AVSpeechSynthesizer()
+    @EnvironmentObject var pillsViewModel: PillsViewModel
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack() {
             ZStack {
                 Color("capsuleLightOrange")
                     .opacity(0.3)
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 16) {
+                    Spacer(minLength: 40)
                     Text("Your Assistant")
-                        .font(.largeTitle)
+//                        .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(Color("capsuleDarkPurple"))
+                        .font(.system(size: 45))
                         .padding()
+//                    Spacer(minLength: 5)
                     Text("Hello, how can I help you?")
                         .font(.title)
                         .padding()
@@ -54,33 +57,39 @@ struct AssistantPromptsView: View {
                         synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                     }
                     HStack(spacing: 16) {
-                        NavigationLink(destination: ReminderView(prompt: .tasksToday)) {
-                            PromptButtonView(prompt: AssistantModels.Prompts.tasksToday.rawValue)
-                        }
-                        NavigationLink(destination: ReminderView(prompt: .setUpReminder)) {
-                            PromptButtonView(prompt: AssistantModels.Prompts.setUpReminder.rawValue)
-                        }
+                        PromptButtonView(prompt: AssistantModels.Prompts.tasksToday.rawValue)
+                            .onTapGesture {
+                                self.selection = Tab.tasks
+                                pillsViewModel.pillsPrompt = .tasksToday
+                            }
+                        PromptButtonView(prompt: AssistantModels.Prompts.setUpReminder.rawValue)
+                            .onTapGesture {
+                                self.selection = Tab.tasks
+                                pillsViewModel.pillsPrompt = .setUpReminder
+                            }
                     }
                     HStack(spacing: 16) {
-                        NavigationLink(destination: PillsView(prompt: .pillsToTake)) {
-                            PromptButtonView(prompt: AssistantModels.Prompts.pillsToTake.rawValue)
-                        }
-                        .onTapGesture {
-                            self.selection = Tab.pills
-                        }
-                        NavigationLink(destination: PeopleView(prompt: .memories)) {
-                            PromptButtonView(prompt: AssistantModels.Prompts.memories.rawValue)
-                        }
+                        PromptButtonView(prompt: AssistantModels.Prompts.pillsToTake.rawValue)
+                            .onTapGesture {
+                                self.selection = Tab.pills
+                                pillsViewModel.pillsPrompt = .pillsToTake
+                            }
+                        
+                        PromptButtonView(prompt: AssistantModels.Prompts.memories.rawValue)
+                            .onTapGesture {
+                                self.selection = Tab.memories
+                                pillsViewModel.pillsPrompt = .pillsToTake
+                            }
                     }
-//                    NavigationLink(destination: AssistantChatView()) {
-//                        PromptButtonView(prompt: AssistantModels.Prompts.chat.rawValue)
-//                    }
-                    NavigationLink(value: AssistantNavigation.child) {
+                    NavigationLink(destination: AssistantChatView()) {
                         PromptButtonView(prompt: AssistantModels.Prompts.chat.rawValue)
                     }
+                    Spacer(minLength: 40)
                 }
                 .padding(16)
             }
+       
+    
         }
     }
     func speak(text: String) {
@@ -91,23 +100,6 @@ struct AssistantPromptsView: View {
     }
 }
 
-struct PromptButtonView: View {
-    var prompt: String
-    var body: some View {
-        Text(prompt)
-            .padding(10)
-            .foregroundColor(Color(.black))
-            
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(prompt == "I want to chat." ? Color("capsuleDarkPurple") : Color("capsuleDarkOrange") , lineWidth: 2)
-            ).background(RoundedRectangle(cornerRadius: 10).fill(prompt == "I want to chat." ? Color("capsuleLightPurple") : Color("capsuleLightOrange")))
-        
-            .font(.title2)
-            .lineLimit(5)
-            .accessibilityAddTraits(.isButton)
-    }
-}
 
 //#Preview {
 //    AssistantPromptsView()

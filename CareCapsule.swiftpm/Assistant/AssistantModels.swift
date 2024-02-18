@@ -12,7 +12,7 @@ struct AssistantModels {
     enum Prompts: String {
         case tasksToday = "What do I have going on today?"
         case setUpReminder = "Help me set up a reminder."
-        case pillsToTake = "Have I taken my pills today?"
+        case pillsToTake = "What pills do I have to take?"
         case memories = "I want to see my memories."
         case chat = "I want to chat."
         case resources
@@ -30,7 +30,7 @@ struct AssistantModels {
             self.text = text
         }
     }
-
+    
     enum Speaker: String {
         case me
         case assistant
@@ -43,5 +43,5 @@ struct AssistantModels {
         case all
         case none
     }
-
+    
 }

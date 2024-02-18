@@ -1,6 +1,5 @@
 import SwiftUI
 import SwiftData
-//import CoreML
 
 @available(iOS 17.0, *)
 @main
@@ -8,7 +7,12 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             TabBarView()
+                .environmentObject(PillsViewModel())
+                .environmentObject(TaskViewModel())
+                .environmentObject(MemoryViewModel())
+            //might have to remove
+                .environmentObject(ImageSelectionViewModel(uiImage: UIImage()))
         }
-        .modelContainer(for: [TaskEntity.self, MedicationEntity.self])
+        .modelContainer(for: [TaskEntity.self, MedicationEntity.self, MemoryEntity.self, ImageEntity.self])
     }
 }

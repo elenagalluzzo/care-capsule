@@ -1,18 +1,18 @@
 //
-//  PillsView.swift
+//  TaskView.swift
 //
 //
-//  Created by Elena Galluzzo on 2024-01-10.
+//  Created by Elena Galluzzo on 2024-02-04.
 //
 
 import SwiftUI
 import SwiftData
 
-struct PillsView: View {
+struct TaskView: View {
     @Environment(\.modelContext) var modelContext
     @State private var showSetUp: Bool = false
-    @Query(sort: \MedicationEntity.firstDate) var pills: [MedicationEntity]
-    @EnvironmentObject var pillsViewModel: PillsViewModel
+    @Query(sort: \TaskEntity.dateOfTask) var tasks: [TaskEntity]
+    @EnvironmentObject var taskViewModel: TaskViewModel
 
     var body: some View {
         NavigationStack {
@@ -21,24 +21,23 @@ struct PillsView: View {
                     Divider()
                         .background(Color("capsuleLightPurple"))
                     List {
-                        ForEach(pills) { pill in
-                            PillCell(pill: pill)
+                        ForEach(tasks) { task in
+                            TaskCell(task: task)
                         }
-                        
-                        .onDelete(perform: deletePill)
+                        .onDelete(perform: deleteTask)
                     }
                     
                 }
                 .scrollContentBackground(.hidden)
                 .safeAreaInset(edge: .bottom, spacing: 5) {
                     Group {
-                        MiniAssistantHelperView(prompt: pillsViewModel.pillsPrompt, isTalking: true)
+                        MiniAssistantHelperView(prompt: taskViewModel.taskPrompt, isTalking: true)
                     }
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
                 }
             }
             .background(Color("capsuleLightOrange").opacity(0.3))
-            .navigationTitle("Medication")
+            .navigationTitle("Tasks")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -51,32 +50,32 @@ struct PillsView: View {
             }
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(
-                Color("capsuleMediumPurple"),
+                Color("capsuleDarkOrange"),
                 for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .sheet(isPresented: $showSetUp, content: {
                 NavigationStack {
-                    SetUpPillView(showSetUp: $showSetUp)
+                    SetUpTaskView(showSetUp: $showSetUp)
                 }
                 .presentationDetents([.medium])
             })
         }
         .onAppear {
-            if pills.count == 0 {
-                pillsViewModel.pillsPrompt = .setUpPill
+            if tasks.count == 0 {
+                taskViewModel.taskPrompt = .reminderGeneral
             } else {
-                pillsViewModel.pillsPrompt = .pillsToTake
+                taskViewModel.taskPrompt = .tasksToday
             }
         }
     }
-    func deletePill(_ indexSet: IndexSet) {
+    func deleteTask(_ indexSet: IndexSet) {
         for index in indexSet {
-            let pill = pills[index]
-            modelContext.delete(pill)
+            let task = tasks[index]
+            modelContext.delete(task)
         }
     }
 }
 
 #Preview {
-    PillsView()
+    TaskView()
 }

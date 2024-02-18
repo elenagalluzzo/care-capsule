@@ -11,9 +11,7 @@ import SwiftData
 @available(iOS 17.0, *)
 struct SetUpPillView: View {
     @Environment(\.modelContext) var modelContext
-    
     @Binding var showSetUp: Bool
-    
     @Bindable var pill: MedicationEntity = MedicationEntity()
     var body: some View {
         List {

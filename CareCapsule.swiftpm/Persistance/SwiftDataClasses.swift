@@ -15,14 +15,15 @@ final class TaskEntity {
     var descrip: String
     var checked: Bool
     var dateOfTask: Date
+    var frequency: String
     
     init(title: String = "", descrip: String = "", frequency: String = "once", checked: Bool = false, dateOfTask: Date = Date()) {
         self.title = title
         self.descrip = descrip
         self.checked = checked
         self.dateOfTask = dateOfTask
+        self.frequency = frequency
     }
-   
 }
 
 @available(iOS 17.0, *)
@@ -33,15 +34,7 @@ final class MedicationEntity {
     var checked: Bool
     var firstDate: Date
     var endDate: Date?
-//    var frequencyValue: ReminderModels.Frequency {
-//        get {
-//            ReminderModels.Frequency(rawValue: frequency) ?? .once
-//        }
-//        set {
-//            self.frequency = newValue.rawValue
-//        }
-//    }
-//    
+    
     init(title: String = "", frequency: String = "once", checked: Bool = false, firstDate: Date = Date(), endDate: Date? = nil) {
         self.title = title
         self.frequency = frequency
@@ -50,6 +43,40 @@ final class MedicationEntity {
         self.endDate = endDate
     }
 }
+
+@available(iOS 17.0, *)
+@Model
+final class MemoryEntity {
+    var id = UUID()
+    var name: String
+    var images: [ImageEntity] = []
+
+    init(name: String = "", images: [ImageEntity] = []) {
+        self.name = name
+        self.images = images
+    }
+}
+
+@available(iOS 17.0, *)
+@Model
+final class ImageEntity {
+    var id: String
+    var descrip: String
+    var uiImage: UIImage {
+        if !id.isEmpty,
+           let image = FileManager().retrieveImageFromDirectory(with: id) {
+            return image
+        } else {
+            return UIImage(systemName: "photo")!
+        }
+    }
+    
+    init(id: String = "", descrip: String = "") {
+        self.id = id
+        self.descrip = descrip
+    }
+}
+
 
 
 

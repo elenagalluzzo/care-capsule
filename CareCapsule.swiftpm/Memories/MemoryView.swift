@@ -1,19 +1,20 @@
 //
-//  PillsView.swift
+//  MemoryView.swift
 //
 //
-//  Created by Elena Galluzzo on 2024-01-10.
+//  Created by Elena Galluzzo on 2023-12-28.
 //
 
 import SwiftUI
 import SwiftData
 
-struct PillsView: View {
+struct MemoryView: View {
     @Environment(\.modelContext) var modelContext
+    @Query var memories: [MemoryEntity]
+    @EnvironmentObject var memoryViewModel: MemoryViewModel
+    @EnvironmentObject var imageViewModel: ImageSelectionViewModel
     @State private var showSetUp: Bool = false
-    @Query(sort: \MedicationEntity.firstDate) var pills: [MedicationEntity]
-    @EnvironmentObject var pillsViewModel: PillsViewModel
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -21,24 +22,23 @@ struct PillsView: View {
                     Divider()
                         .background(Color("capsuleLightPurple"))
                     List {
-                        ForEach(pills) { pill in
-                            PillCell(pill: pill)
+                        ForEach(memories) { memory in
+                            MemoryCellView(memory: memory, viewModel: imageViewModel)
                         }
-                        
-                        .onDelete(perform: deletePill)
+                        .onDelete(perform: deleteMemory)
                     }
+                    .scrollContentBackground(.hidden)
                     
                 }
-                .scrollContentBackground(.hidden)
                 .safeAreaInset(edge: .bottom, spacing: 5) {
-                    Group {
-                        MiniAssistantHelperView(prompt: pillsViewModel.pillsPrompt, isTalking: true)
-                    }
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
+                    MiniAssistantHelperView(prompt: memoryViewModel.memoryPrompt, isTalking: true)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
+                    
                 }
+                
+                .background(Color("capsuleLightOrange").opacity(0.3))
             }
-            .background(Color("capsuleLightOrange").opacity(0.3))
-            .navigationTitle("Medication")
+            .navigationTitle("Memories")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -51,32 +51,27 @@ struct PillsView: View {
             }
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(
-                Color("capsuleMediumPurple"),
+                Color("capsuleDarkOrange"),
                 for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .sheet(isPresented: $showSetUp, content: {
                 NavigationStack {
-                    SetUpPillView(showSetUp: $showSetUp)
+                    SetUpMemoryView(showSetUp: $showSetUp, viewModel: imageViewModel)
                 }
                 .presentationDetents([.medium])
             })
-        }
-        .onAppear {
-            if pills.count == 0 {
-                pillsViewModel.pillsPrompt = .setUpPill
-            } else {
-                pillsViewModel.pillsPrompt = .pillsToTake
-            }
+            
         }
     }
-    func deletePill(_ indexSet: IndexSet) {
+    func deleteMemory(_ indexSet: IndexSet) {
         for index in indexSet {
-            let pill = pills[index]
-            modelContext.delete(pill)
+            let memory = memories[index]
+            modelContext.delete(memory)
         }
     }
 }
 
+
 #Preview {
-    PillsView()
+    MemoryView()
 }

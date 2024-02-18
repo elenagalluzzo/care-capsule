@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum Tab {
-    case pills, assistant, resources
+    case pills, tasks, assistant, memories, resources
 }
 
 enum AssistantNavigation: Hashable {
@@ -11,32 +11,34 @@ enum AssistantNavigation: Hashable {
 @available(iOS 17.0, *)
 struct TabBarView: View {
     @State private var selection: Tab = .assistant
-    @State private var assistantNavigationStack: [AssistantNavigation] = []
+    @EnvironmentObject var pillsViewModel: PillsViewModel
     var body: some View {
         TabView(selection: $selection) {
             Group {
-                PillsView(prompt: .setUpPill).tag(Tab.pills)
+                PillsView().tag(Tab.pills)
                     .tabItem {
-                        Label("Pills", systemImage: "person")
+                        Label("Pills", systemImage: "pill")
+                    }
+                    .onTapGesture {
+                        pillsViewModel.pillsPrompt = .setUpPill
                     }
                 
-//                ReminderView(prompt: .reminderGeneral).tag(2)
-//                    .tabItem {
-//                        Label("Tasks", systemImage: "person").font(.system(size: 80))
-//                    }
-                
-                AssistantPromptsView(selection: $selection, path: $assistantNavigationStack).tag(Tab.assistant)
+                TaskView().tag(Tab.tasks)
                     .tabItem {
-                        Label("Assistant", image: "Assistant-tab")
+                        Label("Tasks", systemImage: "calendar.badge.checkmark").font(.system(size: 80))
                     }
                 
-//                PeopleView(prompt: .lovedOnesGeneral).tag(4)
-//                    .tabItem {
-//                        Label("Loved Ones", systemImage: "person").font(.system(size: 80))
-//                    }
+                AssistantPromptsView(selection: $selection).tag(Tab.assistant)
+                    .tabItem {
+                        Label("Assistant", systemImage: "person")
+                    }
+                MemoryView().tag(Tab.memories)
+                    .tabItem {
+                        Label("Memories", systemImage: "heart").font(.system(size: 80))
+                    }
                 ResourcesView(prompt: .resources).tag(Tab.resources)
                     .tabItem {
-                        Label("Resources", systemImage: "person")
+                        Label("Resources", systemImage: "phone.bubble")
                     }
             }
         }
@@ -47,18 +49,3 @@ struct TabBarView: View {
     
 }
 
-extension TabBarView {
-    private func tabSelection() -> Binding<Tab> {
-        Binding {
-            self.selection
-        } set: { tappedTab in
-            if tappedTab == self.selection {
-                if assistantNavigationStack.isEmpty {
-                } else {
-                    assistantNavigationStack = []
-                }
-            }
-            self.selection = tappedTab
-        }
-    }
-}

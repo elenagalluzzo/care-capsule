@@ -61,21 +61,21 @@ struct MiniAssistantHelperView: View {
     func assistantSpeech(prompt: AssistantModels.Prompts?) -> String {
         switch prompt {
         case .tasksToday:
-            return "Here are your tasks today."
+            return "Here are your tasks. "
         case .setUpReminder:
             return "Press the + next to tasks to add a new task."
         case .setUpPill:
             return "Press the + next to Medication to add a new medication schedule."
         case .pillsToTake:
-            return "Here is the medication you still need to take today."
+            return "Here is the medication you need to take. Check the circle once you have taken them."
         case .memories:
             return "Press the person who you want to see the memories of."
         case .reminderGeneral:
-            return "You can press the + next to tasks or medication to set up a reminder."
+            return "You can press the + next to tasks to set up a reminder."
         case .lovedOnesGeneral:
             return "You can add a loved one by pressing the +. You can add images and their associated memories."
         case .resources:
-            return "Here are some resources you can access."
+            return "Here are some mental health and support resources you can access."
         default:
             return "Press 'Your Assistant' if you need assistance."
         }

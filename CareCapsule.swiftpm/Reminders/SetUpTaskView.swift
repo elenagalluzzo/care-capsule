@@ -11,29 +11,30 @@ import SwiftData
 @available(iOS 17.0, *)
 struct SetUpTaskView: View {
     @Environment(\.modelContext) var modelContext
-    @Bindable var task: TaskEntity
+    @Binding var showSetUp: Bool
+    @Bindable var task: TaskEntity = TaskEntity()
     var body: some View {
-        ZStack {
-            Color.black
-                .opacity(0.5)
-                .ignoresSafeArea()
+        List {
             VStack {
+                
                 TextField("Task Title", text: $task.title)
                 TextField("Description", text: $task.descrip, axis: .vertical)
                 DatePicker("Please enter a date", selection: $task.dateOfTask)
                     .labelsHidden()
+                Picker("Frequency", selection: $task.frequency) {
+                    ForEach(ReminderModels.Frequency.allCases) { frequency in
+                        Text(frequency.rawValue).tag(frequency.rawValue)
+                    }
+                }
+                .pickerStyle(.menu)
+                Spacer()
                 
-                
-                Button("Add", action: addTask)
+                Button("Add") {
+                    modelContext.insert(task)
+                    showSetUp = false
+                    
+                }
             }
-        }
-    }
-    
-    func addTask() {
-        guard task.title.isEmpty == false else { return }
-        withAnimation {
-            let newTask = TaskEntity(title: task.title, descrip: task.descrip, frequency: "", checked: false, dateOfTask: task.dateOfTask)
-            modelContext.insert(newTask)
         }
     }
 }

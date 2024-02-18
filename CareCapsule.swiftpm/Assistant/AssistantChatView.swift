@@ -49,7 +49,7 @@ struct AssistantChatView: View {
                                     messageView(message: message)
                                 }
                                 Color.clear
-                                    .frame(height: 2)
+                                    .frame(height: 5)
                                     .id("bottom")
                             }
                             
@@ -64,12 +64,14 @@ struct AssistantChatView: View {
                     Button("Dismiss Keyboard") {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
-                    .foregroundColor(Color("capsuleDarkOrange"))
+                    .foregroundColor(.white)
+                    .tint(Color("capsuleMediumPurple"))
+                    .buttonStyle(.borderedProminent)
                     HStack {
                         VStack {
                             TextField("Type here ...", text: $viewModel.message, axis: .vertical)
                                 .padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 30))
-                                .background(Color("capsuleLightPurple")
+                                .background(Color("capsuleLightOrange")
                                     .cornerRadius(20))
                         }
                         
@@ -94,13 +96,18 @@ struct AssistantChatView: View {
                 .background(Color("capsuleLightOrange").opacity(0.3))
             }
             .navigationTitle("Chat")
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(
+                Color("capsuleMediumPurple"),
+                for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
     
     func messageView(message: AssistantModels.ChatMessageModel) -> some View {
         HStack {
             if message.speaker == .me {
-                Spacer(minLength: 60)
+                Spacer(minLength: 100)
             }
             if !message.text.isEmpty {
                 VStack {
@@ -114,12 +121,12 @@ struct AssistantChatView: View {
                             Text(message.speaker.rawValue.capitalized)
                                 .font(.subheadline)
                                 .offset(y: 35)
-                                 .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
+                                .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
                         }
                 }
             }
             if message.speaker == .assistant {
-                Spacer(minLength: 60)
+                Spacer(minLength: 100)
             }
         }
         .padding(.horizontal)
@@ -153,10 +160,14 @@ struct AssistantChatView: View {
     }
     
     private func analyzeSentiment() {
-        let model = try! MentalHealthSentimentAnalysis(configuration: MLModelConfiguration())
-        let input = MentalHealthSentimentAnalysisInput(text: viewModel.message)
-        guard let output = try? model.prediction(input: input) else { return }
-        sentimentPrediction = output.label == "0" ? "notConsidered" : "considered"
+        do {
+            let model = try MentalHealthSentimentAnalysis(configuration: MLModelConfiguration())
+            let input = MentalHealthSentimentAnalysisInput(text: viewModel.message)
+            guard let output = try? model.prediction(input: input) else { return }
+            sentimentPrediction = output.label == "0" ? "notConsidered" : "considered"
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
