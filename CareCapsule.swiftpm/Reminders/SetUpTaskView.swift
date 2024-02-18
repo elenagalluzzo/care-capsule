@@ -16,7 +16,6 @@ struct SetUpTaskView: View {
     var body: some View {
         List {
             VStack {
-                
                 TextField("Task Title", text: $task.title)
                 TextField("Description", text: $task.descrip, axis: .vertical)
                 DatePicker("Please enter a date", selection: $task.dateOfTask)
@@ -32,13 +31,8 @@ struct SetUpTaskView: View {
                 Button("Add") {
                     modelContext.insert(task)
                     showSetUp = false
-                    
                 }
             }
         }
     }
 }
-
-//#Preview {
-//    SetUpTaskView()
-//}

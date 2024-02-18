@@ -11,7 +11,6 @@ struct TaskCell: View {
     @State var task: TaskEntity
     
     var body: some View {
-        
         VStack {
             Text("\(task.dateOfTask.formatted(.dateTime.day().month().year())) | \(task.dateOfTask, style: .time)    ")
                 .padding(EdgeInsets(top: 5, leading: 0, bottom: -5, trailing: 0))
@@ -52,15 +51,12 @@ struct TaskCell: View {
                         .fontWeight(.bold)
                         .lineLimit(2)
                         .foregroundColor(Color("capsuleDarkOrange"))
-//                        .frame(width: 270, alignment: .leading)
                     Text(String(task.descrip))
                         .font(.title3)
                         .lineLimit(5)
                         .fontWeight(.semibold)
-//                        .frame(width: 270, alignment: .leading)
                     Text(String(task.frequency))
                         .font(.footnote)
-//                        .frame(width: 270, alignment: .leading)
                     Spacer()
                 }
                 .padding(.vertical, 8)

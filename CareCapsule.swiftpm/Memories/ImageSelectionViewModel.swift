@@ -9,7 +9,6 @@ import UIKit
 
 class ImageSelectionViewModel: ObservableObject {
     @Published var description = ""
-    // might have to change:
     @Published var uiImage: UIImage
     
     var id: String?

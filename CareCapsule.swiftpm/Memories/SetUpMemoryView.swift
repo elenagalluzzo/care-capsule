@@ -18,12 +18,11 @@ struct SetUpMemoryView: View {
     @State private var formType: MemoryModels.FormType?
     @ObservedObject var viewModel: ImageSelectionViewModel
     
-//    var images: [ImageEntity]
-
     var body: some View {
         NavigationStack {
             VStack {
                 TextField("Title of Memory/ Person", text: $memory.name)
+                    .padding()
                 PhotosPicker("Add Images", selection: $imagePicker.imageSelection, matching: .images, photoLibrary: .shared())
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 0) {
@@ -33,8 +32,8 @@ struct SetUpMemoryView: View {
                                     Image(uiImage: image.uiImage)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: 60, height: 60)
-                                        .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
                                         .padding(.horizontal, 20)
                                 }
                             }
@@ -59,7 +58,3 @@ struct SetUpMemoryView: View {
         }
     }
 }
-
-//#Preview {
-//    SetUpMemoryView()
-//}

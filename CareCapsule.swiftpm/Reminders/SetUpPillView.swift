@@ -34,8 +34,3 @@ struct SetUpPillView: View {
         }
     }
 }
-
-//#Preview {
-//    SetUpPillView()
-//        .modelContainer(for: MedicationEntity.self)
-//}

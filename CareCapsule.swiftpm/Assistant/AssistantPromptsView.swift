@@ -23,12 +23,10 @@ struct AssistantPromptsView: View {
                 VStack(spacing: 16) {
                     Spacer(minLength: 40)
                     Text("Your Assistant")
-//                        .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(Color("capsuleDarkPurple"))
                         .font(.system(size: 45))
                         .padding()
-//                    Spacer(minLength: 5)
                     Text("Hello, how can I help you?")
                         .font(.title)
                         .padding()
@@ -88,8 +86,6 @@ struct AssistantPromptsView: View {
                 }
                 .padding(16)
             }
-       
-    
         }
     }
     func speak(text: String) {
@@ -99,10 +95,5 @@ struct AssistantPromptsView: View {
         self.synthesizer.speak(utterance)
     }
 }
-
-
-//#Preview {
-//    AssistantPromptsView()
-//}
 
 

@@ -26,7 +26,6 @@ struct TaskView: View {
                         }
                         .onDelete(perform: deleteTask)
                     }
-                    
                 }
                 .scrollContentBackground(.hidden)
                 .safeAreaInset(edge: .bottom, spacing: 5) {

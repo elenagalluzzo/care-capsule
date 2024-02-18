@@ -41,7 +41,6 @@ struct ResourcesView: View {
     }
 }
 
-
 #Preview {
     ResourcesView()
 }

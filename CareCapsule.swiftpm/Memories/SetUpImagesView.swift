@@ -78,8 +78,3 @@ struct SetUpImagesView: View {
         }
     }
 }
-
-
-//#Preview {
-   // SetUpImagesView(viewModel: ImageSelectionViewModel(uiImage: UIImage(systemName: "photo")!))
-//}

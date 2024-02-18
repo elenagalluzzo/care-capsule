@@ -52,8 +52,6 @@ struct AssistantChatView: View {
                                     .frame(height: 5)
                                     .id("bottom")
                             }
-                            
-                            
                         }
                         .onChange(of: viewModel.chatMessages.count, { _, _ in
                             proxy.scrollTo(viewModel.chatMessages[viewModel.chatMessages.count-1].id, anchor: .bottom)

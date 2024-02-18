@@ -10,7 +10,6 @@ struct MyApp: App {
                 .environmentObject(PillsViewModel())
                 .environmentObject(TaskViewModel())
                 .environmentObject(MemoryViewModel())
-            //might have to remove
                 .environmentObject(ImageSelectionViewModel(uiImage: UIImage()))
         }
         .modelContainer(for: [TaskEntity.self, MedicationEntity.self, MemoryEntity.self, ImageEntity.self])

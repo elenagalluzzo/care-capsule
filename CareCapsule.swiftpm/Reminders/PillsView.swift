@@ -24,7 +24,6 @@ struct PillsView: View {
                         ForEach(pills) { pill in
                             PillCell(pill: pill)
                         }
-                        
                         .onDelete(perform: deletePill)
                     }
                     
