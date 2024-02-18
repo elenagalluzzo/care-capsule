@@ -11,7 +11,7 @@ struct MemoryCellView: View {
     @State var memory: MemoryEntity
     @ObservedObject var viewModel: ImageSelectionViewModel
     var body: some View {
-        NavigationLink(destination: getDestination(memory: memory, viewModel: viewModel)) {
+        NavigationLink(destination: MemoryGalleryView(memory: memory, viewModel: viewModel)) {
             VStack {
                 HStack {
                     if !memory.images.isEmpty && !memory.images[0].id.isEmpty {
@@ -30,21 +30,15 @@ struct MemoryCellView: View {
                             .padding(.leading, 8)
                     }
                     Text(memory.name)
-                        .font(.headline)
-                        .lineLimit(1)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .lineLimit(2)
+                        .foregroundColor(Color("capsuleDarkOrange"))
+                        .padding(5)
                     Spacer()
                 }
                 .padding(.vertical, 8)
             }
         }
     }
-    
-    func getDestination(memory: MemoryEntity, viewModel: ImageSelectionViewModel) -> AnyView? {
-        if !memory.images.isEmpty {
-                return AnyView(MemoryGalleryView(memory: memory, viewModel: viewModel))
-            } else {
-                return nil
-            }
-        }
-   
 }

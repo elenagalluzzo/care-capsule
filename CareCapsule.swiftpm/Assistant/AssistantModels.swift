@@ -15,7 +15,7 @@ struct AssistantModels {
         case pillsToTake = "What pills do I have to take?"
         case memories = "I want to see my memories."
         case chat = "I want to chat."
-        case resources
+        case resources = "Show me support resources."
         case reminderGeneral
         case setUpPill
         case setUpImages

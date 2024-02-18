@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVFoundation
+import SwiftData
 
 @available(iOS 17.0, *)
 struct AssistantPromptsView: View {
@@ -14,6 +15,9 @@ struct AssistantPromptsView: View {
     @State var isTalking: Bool = true
     @State var synthesizer = AVSpeechSynthesizer()
     @EnvironmentObject var pillsViewModel: PillsViewModel
+    @EnvironmentObject var taskViewModel: TaskViewModel
+    @State private var showSetUp: Bool = false
+    @Query var pills: [MedicationEntity]
     var body: some View {
         NavigationStack() {
             ZStack {
@@ -55,28 +59,29 @@ struct AssistantPromptsView: View {
                         synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                     }
                     HStack(spacing: 16) {
-                        PromptButtonView(prompt: AssistantModels.Prompts.tasksToday.rawValue)
+                        PromptButtonView(prompt: AssistantModels.Prompts.pillsToTake.rawValue)
                             .onTapGesture {
-                                self.selection = Tab.tasks
-                                pillsViewModel.pillsPrompt = .tasksToday
+                                if pills.count == 0 {
+                                    pillsViewModel.pillsPrompt = .setUpPill
+                                } else {
+                                    pillsViewModel.pillsPrompt = .pillsToTake
+                                }
+                                self.selection = Tab.pills
                             }
                         PromptButtonView(prompt: AssistantModels.Prompts.setUpReminder.rawValue)
                             .onTapGesture {
+                                taskViewModel.taskPrompt = .setUpReminder
                                 self.selection = Tab.tasks
-                                pillsViewModel.pillsPrompt = .setUpReminder
                             }
                     }
                     HStack(spacing: 16) {
-                        PromptButtonView(prompt: AssistantModels.Prompts.pillsToTake.rawValue)
-                            .onTapGesture {
-                                self.selection = Tab.pills
-                                pillsViewModel.pillsPrompt = .pillsToTake
-                            }
-                        
                         PromptButtonView(prompt: AssistantModels.Prompts.memories.rawValue)
                             .onTapGesture {
                                 self.selection = Tab.memories
-                                pillsViewModel.pillsPrompt = .pillsToTake
+                            }
+                        PromptButtonView(prompt: AssistantModels.Prompts.resources.rawValue)
+                            .onTapGesture {
+                                self.selection = Tab.resources
                             }
                     }
                     NavigationLink(destination: AssistantChatView()) {

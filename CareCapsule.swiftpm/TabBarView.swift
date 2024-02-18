@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 enum Tab {
     case pills, tasks, assistant, memories, resources
@@ -12,6 +13,7 @@ enum AssistantNavigation: Hashable {
 struct TabBarView: View {
     @State private var selection: Tab = .assistant
     @EnvironmentObject var pillsViewModel: PillsViewModel
+    @Query var pills: [MedicationEntity]
     var body: some View {
         TabView(selection: $selection) {
             Group {
@@ -20,7 +22,12 @@ struct TabBarView: View {
                         Label("Pills", systemImage: "pill")
                     }
                     .onTapGesture {
-                        pillsViewModel.pillsPrompt = .setUpPill
+                            if pills.count == 0 {
+                                pillsViewModel.pillsPrompt = .setUpPill
+                            } else {
+                                pillsViewModel.pillsPrompt = .pillsToTake
+                            }
+                            self.selection = Tab.pills
                     }
                 
                 TaskView().tag(Tab.tasks)

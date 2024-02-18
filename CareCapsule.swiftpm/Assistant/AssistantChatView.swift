@@ -44,7 +44,7 @@ struct AssistantChatView: View {
                     ScrollViewReader { proxy in
                         ScrollView {
                             LazyVStack(spacing:15) {
-                                messageView(message: AssistantModels.ChatMessageModel(speaker: .assistant, text: "Press type in the textfield below."))
+                                messageView(message: AssistantModels.ChatMessageModel(speaker: .assistant, text: "Type in the textfield below."))
                                 ForEach(viewModel.chatMessages) { message in
                                     messageView(message: message)
                                 }

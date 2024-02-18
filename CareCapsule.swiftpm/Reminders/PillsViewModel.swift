@@ -9,5 +9,5 @@ import Foundation
 import SwiftUI
 
 class PillsViewModel: ObservableObject {
-    @Published var pillsPrompt = AssistantModels.Prompts.pillsToTake
+    @Published var pillsPrompt = AssistantModels.Prompts.setUpPill
 }

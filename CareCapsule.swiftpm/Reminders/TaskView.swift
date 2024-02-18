@@ -61,7 +61,7 @@ struct TaskView: View {
         }
         .onAppear {
             if tasks.count == 0 {
-                taskViewModel.taskPrompt = .reminderGeneral
+                taskViewModel.taskPrompt = .setUpReminder
             } else {
                 taskViewModel.taskPrompt = .tasksToday
             }

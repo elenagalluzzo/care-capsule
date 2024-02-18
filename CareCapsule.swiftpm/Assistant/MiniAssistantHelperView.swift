@@ -61,7 +61,7 @@ struct MiniAssistantHelperView: View {
     func assistantSpeech(prompt: AssistantModels.Prompts?) -> String {
         switch prompt {
         case .tasksToday:
-            return "Here are your tasks. "
+            return "Here are your tasks."
         case .setUpReminder:
             return "Press the + next to tasks to add a new task."
         case .setUpPill:
