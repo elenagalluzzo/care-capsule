@@ -40,7 +40,9 @@ class AssistantResponse: ObservableObject {
         let pillQuestions: [String] = ["pill", "medication", "med", "meds", "medicine", "drug"]
         let taskQuestions: [String] = ["task", "reminder", "appointment", "today"]
         let unrelatedQuestions: [String] = ["how", "who", "what", "when", "where", "why"]
-        let generic: [String] = ["That's cool", "Tell me more", "That's interesting"]
+        let generic: [String] = ["Tell me more", "I see", "That's interesting"]
+        let consideredRespondes: [String] = ["You seem low in spirits. You can seek information or help by calling or texting 211. There are more resources you can find in the resources tab below.", "You seem upset. Perhaps reminding yourself of positive memories will uplift your mood. You can also access mental health resources in the resources tab below."]
+        let edgeCaseSadPrompts: [String] = ["sad", "depressed", "lonely"]
         
         if greetings.contains(lowercasedMessage) {
             return (response: "Hi there!", prompt: .none)
@@ -50,25 +52,25 @@ class AssistantResponse: ObservableObject {
             return (response: "I'm fine, how about you?", prompt: .none)
         } else if lowercasedMessage.contains("what's up") || lowercasedMessage.contains("whats up") {
                return (response: "I am here to assist you or to chat. How about you?", prompt: .none)
-        } else if pillQuestions.contains(lowercasedMessage) {
+        } else if pillQuestions.contains(where: { lowercasedMessage.contains($0) }) {
             return (response: "To view your medication schedule, or to set up a medication reminder, press the Pills tab in the bottom left corner.", prompt: .none)
-        } else if taskQuestions.contains(lowercasedMessage) {
+        } else if taskQuestions.contains(where: { lowercasedMessage.contains($0) }) {
             return (response: "To view or set up reminders, press the Tasks tab below.", prompt: .none)
         } else if lowercasedMessage.contains("help") {
             return (response: "What do you need help with?", prompt: .none)
     // sentiment analysis
-        } else if sentimentPrediction == "considered" {
+        } else if sentimentPrediction == "considered"  || edgeCaseSadPrompts.contains(where: { lowercasedMessage.contains($0) }) {
             negativeCount += 1
             defaults.set(negativeCount, forKey: "NegativeCount")
             if negativeCount > 10 {
                 return (response: "You have been showing signs of poor mental health. Please call 1-866-585-0445 for free 24 Hour councelling. There are more resources you can find in the resources tab below.", prompt: .negative)
             }
-            if hasMemories {
+            if memories.count > 0 {
                 return (response: "You seem upset. Perhaps reminding yourself of positive memories will uplift your mood. You can also access mental health resources in the resources tab below.", prompt: .negative)
             } else {
-                return (response: "You seem low in spirits. You can seek information or help by calling or texting 211. There are more resources you can find in the resources tab below.", prompt: .negative)
+                return (response: consideredRespondes.randomElement() ?? "You seem low in spirits. You can seek information or help by calling or texting 211. There are more resources you can find in the resources tab below.", prompt: .negative)
             }
-        } else if unrelatedQuestions.contains(lowercasedMessage){
+        } else if unrelatedQuestions.contains(where: { lowercasedMessage.contains($0) }) {
             return (response: "I am not sure… I am sorry.", prompt: .none)
         } else {
             return (response: generic.randomElement() ?? "I see", prompt: .none)

@@ -21,7 +21,7 @@ struct PromptButtonView: View {
             .multilineTextAlignment(.center)
             .font(.title2)
             .fontWeight(prompt == "I want to chat." ? .semibold : .regular)
-            .lineLimit(5)
+            .fixedSize(horizontal: false, vertical: true)
             .accessibilityAddTraits(.isButton)
     }
 }
