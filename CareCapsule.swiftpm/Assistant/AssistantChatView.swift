@@ -138,7 +138,7 @@ struct AssistantChatView: View {
                     if let last = viewModel.chatMessages.last {
                         speak(text: last.text)
                         isTalking = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                             isTalking = false
                         }
                     }

@@ -39,9 +39,11 @@ class AssistantResponse: ObservableObject {
         let farewells: [String] = ["bye", "goodbye", "good bye", "see you", "talk to you later", "farewell", "goodnight", "good night", "bye bye"]
         let pillQuestions: [String] = ["pill", "medication", "med", "meds", "medicine", "drug"]
         let taskQuestions: [String] = ["task", "reminder", "appointment", "today"]
+        let resourceQuestions: [String] = ["resource", "mental health", "resources"]
+        let memoryQuestions: [String] = ["memory", "memories", "album", "albums"]
         let unrelatedQuestions: [String] = ["how", "who", "what", "when", "where", "why"]
         let generic: [String] = ["Tell me more", "I see", "That's interesting"]
-        let consideredRespondes: [String] = ["You seem low in spirits. You can seek information or help by calling or texting 211. There are more resources you can find in the resources tab below.", "You seem upset. Perhaps reminding yourself of positive memories will uplift your mood. You can also access mental health resources in the resources tab below."]
+        let consideredRespondes: [String] = ["You seem low in spirits. You can seek information or help by calling or texting 211. There are more resources you can find in the resources tab below.", "You seem upset. Perhaps reminding yourself of positive memories will uplift your mood. You can seek information or help by calling or texting 211. You can also access mental health resources in the resources tab below."]
         let edgeCaseSadPrompts: [String] = ["sad", "depressed", "lonely"]
         
         if greetings.contains(lowercasedMessage) {
@@ -56,6 +58,10 @@ class AssistantResponse: ObservableObject {
             return (response: "To view your medication schedule, or to set up a medication reminder, press the Pills tab in the bottom left corner.", prompt: .none)
         } else if taskQuestions.contains(where: { lowercasedMessage.contains($0) }) {
             return (response: "To view or set up reminders, press the Tasks tab below.", prompt: .none)
+        } else if resourceQuestions.contains(where: { lowercasedMessage.contains($0) }) {
+            return (response: "To view mental health resources, press the Resources tab in the bottom right corner.", prompt: .none)
+        } else if memoryQuestions.contains(where: { lowercasedMessage.contains($0) }) {
+            return (response: "To view or set up good moments and memories, press the Memories tab.", prompt: .none)
         } else if lowercasedMessage.contains("help") {
             return (response: "What do you need help with?", prompt: .none)
     // sentiment analysis
