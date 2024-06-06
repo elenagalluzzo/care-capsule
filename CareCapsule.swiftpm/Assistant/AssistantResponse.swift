@@ -42,9 +42,9 @@ class AssistantResponse: ObservableObject {
         let resourceQuestions: [String] = ["resource", "mental health", "resources"]
         let memoryQuestions: [String] = ["memory", "memories", "album", "albums"]
         let unrelatedQuestions: [String] = ["how", "who", "what", "when", "where", "why"]
-        let generic: [String] = ["Tell me more", "I see", "That's interesting"]
+        let generic: [String] = ["Please tell me more", "I see", "How’s your day going so far?", "Is there I can help you with today?", "Do you need assistance?", "Thanks for providing that information.", "Could you please elaborate?"]
         let consideredRespondes: [String] = ["You seem low in spirits. You can seek information or help by calling or texting 211. There are more resources you can find in the resources tab below.", "You seem upset. Perhaps reminding yourself of positive memories will uplift your mood. You can seek information or help by calling or texting 211. You can also access mental health resources in the resources tab below."]
-        let edgeCaseSadPrompts: [String] = ["sad", "depressed", "lonely"]
+        
         
         if greetings.contains(lowercasedMessage) {
             return (response: "Hi there!", prompt: .none)
@@ -65,7 +65,7 @@ class AssistantResponse: ObservableObject {
         } else if lowercasedMessage.contains("help") {
             return (response: "What do you need help with?", prompt: .none)
     // sentiment analysis
-        } else if sentimentPrediction == "considered"  || edgeCaseSadPrompts.contains(where: { lowercasedMessage.contains($0) }) {
+        } else if sentimentPrediction == "considered" {
             negativeCount += 1
             defaults.set(negativeCount, forKey: "NegativeCount")
             if negativeCount > 10 {
